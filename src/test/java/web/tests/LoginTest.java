@@ -1,11 +1,11 @@
-package tests;
+package web.tests;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pages.LoginPage;
-import pages.MyAccountPage;
+import web.pages.LoginPage;
+import web.pages.MyAccountPage;
 
 public class LoginTest
 {
