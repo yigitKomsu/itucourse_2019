@@ -51,46 +51,48 @@ WebDriver is an open source tool for automated testing of webapps across many br
 
 
 # -> Node JS
-sudo npm install -g npm@7.5.0
+    sudo npm install -g npm@7.5.0
 # -> Appium("ie:1.7.2")
-npm install -g appium@{VERSION_NUMBER} "ie:1.7.2" (honestly might be better off pulling from source for latest...)
+    npm install -g appium@{VERSION_NUMBER} "ie:1.7.2" (honestly might be better off pulling from source for latest...)
 # -> ideviceinstaller
-brew install ideviceinstaller
+    brew install ideviceinstaller
 # -> carthage
-brew install carthage
+    brew install carthage
 # -> ios-deploy
-npm install -g ios-deploy
+    npm install -g ios-deploy
 # -> deviceconsole
-npm install -g deviceconsole
+    npm install -g deviceconsole
 # -> xcpretty (Optional)
-gem install xcpretty
+    gem install xcpretty
  
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
 # Manual Configuration
 
 Enter WebDriver agent directory with:  
-cd /usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent
-sudo mkdir -p Resources/WebDriverAgent.bundle
-sudo mkdir Modules
-sudo chmod -R 777  Scripts
-sudo chmod -R 777  Modules
-sudo ./Scripts/bootstrap.sh
+
+    cd /usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent
+    sudo mkdir -p Resources/WebDriverAgent.bundle
+    sudo mkdir Modules
+    sudo chmod -R 777  Scripts
+    sudo chmod -R 777  Modules
+    sudo ./Scripts/bootstrap.sh
 
 # Java Code Configuration
 Add DesiredCapabilies to that code. 
-capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME,"XCUITest");
+    
+    capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME,"XCUITest");
  
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
 # Start Listeners
 Simulator Listener Execution Command
 # -> IOS:
-appium --address 127.0.0.1 --port 4723 --session-override --isolate-sim-device --app "/opt/sahibinden/sahibinden.app"
+    appium --address 127.0.0.1 --port 4723 --session-override --isolate-sim-device --app "/opt/sahibinden/sahibinden.app"
 # -> ANDROID:
-appium --address 127.0.0.1 --port 4723 --session-override --command-timeout 600 --isolate-sim-device --app "/opt/sahibinden/app-debug.apk" --app-pkg "com.sahibinden" --app-activity "com.sahibinden.ui.supplementary.SplashScreenActivity"
+    appium --address 127.0.0.1 --port 4723 --session-override --command-timeout 600 --isolate-sim-device --app "/opt/sahibinden/app-debug.apk" --app-pkg "com.sahibinden" --app-activity "com.sahibinden.ui.supplementary.SplashScreenActivity"
 # -> Real Device Listener Execution Command
 
 # -> IOS:
-appium --address 0.0.0.0 --port 8001 -U 4ba6b062c167b52ad37c2afe6c8631e720239d21 --session-override --command-timeout 600 --app "/opt/sahibinden/sahibinden.app"
+    appium --address 0.0.0.0 --port 8001 -U 4ba6b062c167b52ad37c2afe6c8631e720239d21 --session-override --command-timeout 600 --app "/opt/sahibinden/sahibinden.app"
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # -> Additional Setup for Android App Testing
 Download the latest Java JDK here (accept the license agreement first). Set 'JAVA_HOME’ to be your JDK path. The bin in that directory should be added to your PATH variable.
@@ -107,24 +109,27 @@ Your test script should ensure that the platformVersion capability corresponds t
 ------------------------------------------------------------------------------------------------------------------------------
 # Problems & Solutions:
 # -> issue 1 : 'Waiting for WebDriverAgent server to finish loading...'
-https://github.com/appium/appium/issues/6892 ---> SOLUTION
-The problem solved by installing xcuitest-drive VERSION v2.0.36 (downgraded from v2.4.2)
-cd /usr/local/lib/node_modules/appium
-npm uninstall appium-xcuitest-driver
-npm install appium-xcuitest-driver@2.0.36
+
+    https://github.com/appium/appium/issues/6892 ---> SOLUTION
+    The problem solved by installing xcuitest-drive VERSION v2.0.36 (downgraded from v2.4.2)
+    cd /usr/local/lib/node_modules/appium
+    npm uninstall appium-xcuitest-driver
+    npm install appium-xcuitest-driver@2.0.36
 
 # -> issue 2 : If sudo /Scripts/bootstrap.sh operation is fail at WebDriverAgent, what should I do?
-https://github.com/appium/appium/issues/7066 ---> SOLUTION
-cd ~
-git clone https://github.com/facebook/WebDriverAgent.git
-sudo ./Scripts/bootstrap.sh
-cd /usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver
-rm -rf WebDriverAgent
-mv ~/WebDriverAgent /usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent
+
+    https://github.com/appium/appium/issues/7066 ---> SOLUTION
+    cd ~
+    git clone https://github.com/facebook/WebDriverAgent.git
+    sudo ./Scripts/bootstrap.sh
+    cd /usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver
+    rm -rf WebDriverAgent
+    mv ~/WebDriverAgent /usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent
 
 # -> issue 3 : If sendkeys method throws WDA exception, you should update to appium 1.6.4-beta and change WDA iOS Deployment target to iOS Device target
-https://github.com/appium/appium/issues/7829 ---> SOLUTION
-cd /usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent
-open . 
-open Project in Xcode
-WebDriverAgent > Info > Deployment target
+
+    https://github.com/appium/appium/issues/7829 ---> SOLUTION
+    cd /usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent
+    open . 
+    open Project in Xcode
+    WebDriverAgent > Info > Deployment target
