@@ -41,7 +41,11 @@ WebDriver is an open source tool for automated testing of webapps across many br
 
 
 
-# Course 2 09.05.2019
+
+
+------------
+
+# Course 2 (09.05.2019)
 
 # Prerequisites :
 
